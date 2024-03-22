@@ -74,9 +74,33 @@
               </div>
             </div>
           </div>
+        
           {% endfor %}
         {% else %}
-          <h1>No  properties found.</h1>
+          <div class="col-md-12">
+            <h1>No  properties found.</h1>
+          </div>
         {% endif %}
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          {% if listings.has_other_paages %}
+            <ul class="paagination">
+              {% if listings.has_previous %}
+                <li class="page-item">
+                  <a href="?page={{listings.previous_page_number}}"class="page-link">&laquo;</a>
+                </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a href="" class="page-link">&laquo;</a>
+              </li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+      
   </section>
 {% endblock content %}
