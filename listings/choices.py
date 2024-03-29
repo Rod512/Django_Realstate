@@ -43,5 +43,5 @@ state_choices = {
     'ID' : 'Idaho',
     'IL' : 'Illinois',
     'IN' : 'Indiana',
-
+    'WB'  : 'West Bengal'
 }
