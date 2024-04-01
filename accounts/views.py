@@ -1,8 +1,9 @@
 from django.shortcuts import render
-# from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.contrib import messages,auth
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,logout,login
 
 #user register
 def register(request):
@@ -40,17 +41,30 @@ def register(request):
         return render(request, 'accounts/register.html')
 
 #user login
-def login(request):
+def user_login(request):
     if request.method == 'POST': 
-        return
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "You are logged in")
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid credentials')
+            return redirect('login')
     else:
         return render(request, 'accounts/login.html')
     
 
 #user logout
-def logout(request):
-    return redirect('Home')
-
+def user_logout(request):
+     logout(request)
+     return HttpResponseRedirect('/')
+    
+    
 #dashboard
 def dashboard(request):
     return render(request, 'accounts/dashboard.html')
